@@ -6,6 +6,7 @@ function FlightSearch() {
   const [endDate, setEndDate] = useState("");
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [airLineName, setAirLineName] = useState("");
 
   const handleSearch = async () => {
     setLoading(true);
@@ -21,31 +22,50 @@ function FlightSearch() {
     setLoading(false);
   };
 
+  const handleSearchByAirLine = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/flights/searchbyairline?airLineName=${airLineName}`
+      );
+      setFlights(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log("error en la carga de datos de  vuelo");
+    }
+    setLoading(false);
+  };
   return (
     <div>
       <h2>Buscar Vuelos</h2>
 
       <div>
-        <label>Fecha de Inicio:</label>
+        <label>Fecha de Inicio: </label>
 
         <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
-      </div>
 
-      <div>
-        <label>Fecha Fin:</label>
+        <label>Fecha Fin: </label>
 
         <input
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-      </div>
 
-      <button onClick={handleSearch}>Buscar </button>
+        <button onClick={handleSearch}>Buscar por fechas </button>
+      </div>
+      <div>
+        <label>nombre de la aerolinea: </label>
+        <input
+          value={airLineName}
+          onChange={(e) => setAirLineName(e.target.value)}
+        />
+        <button onClick={handleSearchByAirLine}>Buscar por aerolinea </button>
+      </div>
 
       {loading && <p>Cargando....</p>}
 
@@ -71,7 +91,6 @@ function FlightSearch() {
         <p>No se encontraron vuelos</p>
       )}
     </div>
-    
   );
 }
 
