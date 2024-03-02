@@ -1,3 +1,6 @@
 Model: DAO
 Service: Lógica
 Controller: endpoints
+
+
+¿ qué hace setLoading?
