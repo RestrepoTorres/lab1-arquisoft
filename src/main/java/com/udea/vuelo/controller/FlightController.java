@@ -25,11 +25,13 @@ public class FlightController {
         LocalDate parsedEndDate = LocalDate.parse(endDate);
         return flightService.searchFlights(parsedStartDate, parsedEndDate);
     }
+
     @GetMapping("/searchbyairline")
-    public List<List<Flight>> searchFlightsByAirLine(
+    public List<List<Flight>> searchFlightsByAirLineRefactor(
             @RequestParam(name = "airLineName") String airLineName) {
         return flightService.searchFlightsByAirLine(airLineName);
     }
+
     @GetMapping("/searchbyorigin")
     public List<List<Flight>> searchFlightsByOrigin(
             @RequestParam(name = "airLineName") String airLineName) {
