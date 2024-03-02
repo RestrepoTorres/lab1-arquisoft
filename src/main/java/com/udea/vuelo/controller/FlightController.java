@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/flights")
+@RequestMapping("/flights")  //ruta base de la api
 public class FlightController {
-    @Autowired
+    @Autowired //inyección de dependecias del servicio (lógica)
     private FlightService flightService;
     @GetMapping("/search")
     public List <List<Flight>> searchFlights(
