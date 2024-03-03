@@ -27,27 +27,28 @@ public class FlightController {
     }
 
     @GetMapping("/searchbyairline")
-    public List<List<Flight>> searchFlightsByAirLineRefactor(
+    public List<List<Flight>> searchFlightsByAirLine(
             @RequestParam(name = "airLineName") String airLineName) {
         return flightService.searchFlightsByAirLine(airLineName);
     }
 
     @GetMapping("/searchbyorigin")
     public List<List<Flight>> searchFlightsByOrigin(
-            @RequestParam(name = "airLineName") String airLineName) {
-        return flightService.searchFlightsByAirLine(airLineName);
+            @RequestParam(name = "origin") String origin) {
+        return flightService.searchFlightsByOrigin(origin);
     }
 
     @GetMapping("/searchbydestination")
     public List<List<Flight>> searchFlightsByDestination(
-            @RequestParam(name = "airLineName") String airLineName) {
-        return flightService.searchFlightsByAirLine(airLineName);
+            @RequestParam(name = "destination") String destination) {
+        return flightService.searchFlightsByDestination(destination);
     }
 
     @GetMapping("/searchbyprice")
     public List<List<Flight>> searchFlightsByPrice(
-            @RequestParam(name = "airLineName") String airLineName) {
-        return flightService.searchFlightsByAirLine(airLineName);
+            @RequestParam(name = "price") String price) {
+        int parsePrice = Integer.parseInt(price);
+        return flightService.searchFlightsByPrice(parsePrice);
     }
 
 }

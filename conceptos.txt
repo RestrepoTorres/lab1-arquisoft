@@ -4,3 +4,5 @@ Controller: endpoints
 
 
 ¿ qué hace setLoading?
+
+¿list <list>>?

@@ -102,6 +102,4 @@ public class FlightService {
     private boolean isPriceInRange(int price, int priceToCheck) {
         return priceToCheck< price;
     }
-
-
 }

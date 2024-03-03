@@ -7,6 +7,7 @@ function FlightSearch() {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [airLineName, setAirLineName] = useState("");
+  const [destination, setDestination] = useState("");
 
   const handleSearch = async () => {
     setLoading(true);
@@ -27,6 +28,20 @@ function FlightSearch() {
     try {
       const response = await axios.get(
         `http://localhost:8080/flights/searchbyairline?airLineName=${airLineName}`
+      );
+      setFlights(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log("error en la carga de datos de  vuelo");
+    }
+    setLoading(false);
+  };
+
+  const handleSearchByDestination = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/flights/searchbydestination?destination=${destination}`
       );
       setFlights(response.data);
       console.log(response.data);
@@ -65,6 +80,15 @@ function FlightSearch() {
           onChange={(e) => setAirLineName(e.target.value)}
         />
         <button onClick={handleSearchByAirLine}>Buscar por aerolinea </button>
+      </div>
+
+      <div>
+        <label>nombre del destino : </label>
+        <input
+          value={destination}
+          onChange={(e) => setDestination(e.target.value)}
+        />
+        <button onClick={handleSearchByDestination}>Buscar por aerolinea </button>
       </div>
 
       {loading && <p>Cargando....</p>}
