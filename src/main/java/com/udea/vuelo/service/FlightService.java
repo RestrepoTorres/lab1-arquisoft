@@ -22,7 +22,7 @@ public class FlightService {
 
 
     //método de la logica de busqueda de vuelos
-    public List<List<Flight>> searchFlights(LocalDate startDate, LocalDate endDate, String airLine) {
+    public List<List<Flight>> searchFlights(LocalDate startDate, LocalDate endDate, String airLine, String origin, String destination ) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("flights.json");
@@ -34,6 +34,8 @@ public class FlightService {
 
                                 .filter(flight -> isDateInRange(flight.getDepartureDate(), startDate, endDate))
                                 .filter(flight -> isAirLineEquals(airLine, flight.getAirline()))
+                                .filter(flight -> isOriginEquals(origin, flight.getOrigin()))
+                                .filter(flight -> isDestinationEquals(destination, flight.getDestination()))
                                 .collect(Collectors.toList()));
             } else {
                 return null;
@@ -43,45 +45,6 @@ public class FlightService {
         }
     }
 
-    public Flight[] getAllFlights() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("flights.json");
-            if (inputStream != null) {
-                return objectMapper.readValue(inputStream, Flight[].class);
-            } else {
-                return null;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error leyendo el json" + e);
-        }
-    }
-
-    public List<List<Flight>> searchFlightsByAirLine(String airLineName) {
-        Flight[] flights = getAllFlights();
-        return Arrays.asList(Arrays.stream(flights).filter(flight -> isAirLineEquals(airLineName, flight.getAirline()))
-                .collect(Collectors.toList()));
-    }
-
-    public List<List<Flight>> searchFlightsByOrigin(String origin) {
-        Flight[] flights = getAllFlights();
-        return Arrays.asList(Arrays.stream(flights).filter(flight -> isOriginEquals(origin, flight.getOrigin()))
-                .collect(Collectors.toList()));
-    }
-
-
-    public List<List<Flight>> searchFlightsByDestination(String destination) {
-        Flight[] flights = getAllFlights();
-        return Arrays.asList(Arrays.stream(flights).filter(flight -> isDestinationEquals(destination, flight.getDestination()))
-                .collect(Collectors.toList()));
-    }
-
-
-    public List<List<Flight>> searchFlightsByPrice(int price) {
-        Flight[] flights = getAllFlights();
-        return Arrays.asList(Arrays.stream(flights).filter(flight -> isPriceInRange(price, flight.getPrice()))
-                .collect(Collectors.toList()));
-    }
 
     private boolean isDateInRange(LocalDate dateToCheck, LocalDate startDate, LocalDate endDate) {
         //verifica si la fecha esta en el rango correcto
@@ -89,21 +52,31 @@ public class FlightService {
     }
 
     private boolean isAirLineEquals(String airLineName, String airLineNameToCheck) {
-        if (Objects.equals(airLineName, "") || airLineName == null){
+        if (Objects.equals(airLineName, "") || airLineName == null) {
             return true;
         }
         return airLineName.equals(airLineNameToCheck);
     }
 
     private boolean isOriginEquals(String origin, String originToCheck) {
+        if (Objects.equals(origin, "") || origin == null) {
+            return true;
+        }
         return origin.equals(originToCheck);
     }
 
     private boolean isDestinationEquals(String destination, String destinationToCheck) {
+        if (Objects.equals(destination, "") || destination == null) {
+            System.out.println("entro por el null");
+            return true;
+        }
         return destination.equals(destinationToCheck);
     }
 
     private boolean isPriceInRange(int price, int priceToCheck) {
+        if (price == 0) {
+            return true;
+        }
         return priceToCheck < price;
     }
 }

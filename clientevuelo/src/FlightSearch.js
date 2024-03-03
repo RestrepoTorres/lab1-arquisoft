@@ -7,13 +7,15 @@ function FlightSearch() {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [airLineName, setAirLineName] = useState("");
+  const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
+  const [price, setPrice] = useState(0);
 
   const handleSearch = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:8080/flights/search?startDate=${startDate}&endDate=${endDate}&airLineName=${airLineName}`
+        `http://localhost:8080/flights/search?startDate=${startDate}&endDate=${endDate}&airLineName=${airLineName}&destination=${destination}&origin=${origin}`
       );
       setFlights(response.data);
       console.log(response.data);
@@ -23,72 +25,49 @@ function FlightSearch() {
     setLoading(false);
   };
 
-  const handleSearchByAirLine = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/flights/searchbyairline?airLineName=${airLineName}`
-      );
-      setFlights(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log("error en la carga de datos de  vuelo");
-    }
-    setLoading(false);
-  };
-
-  const handleSearchByDestination = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/flights/searchbydestination?destination=${destination}`
-      );
-      setFlights(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log("error en la carga de datos de  vuelo");
-    }
-    setLoading(false);
-  };
   return (
     <div>
       <h2>Buscar Vuelos</h2>
 
       <div>
         <label>Fecha de Inicio: </label>
-
+        <br />
         <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
-
+        <br />
         <label>Fecha Fin: </label>
-
+        <br />
         <input
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-
-        <button onClick={handleSearch}>Buscar por fechas </button>
-      </div>
-      <div>
+        <br />
         <label>nombre de la aerolinea: </label>
+        <br />
         <input
           value={airLineName}
           onChange={(e) => setAirLineName(e.target.value)}
         />
-        <button onClick={handleSearchByAirLine}>Buscar por aerolinea </button>
-      </div>
-
-      <div>
+        <br />
         <label>nombre del destino : </label>
+        <br />
         <input
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
         />
-        <button onClick={handleSearchByDestination}>Buscar por aerolinea </button>
+        <br />
+        <label>nombre del origen : </label>
+        <br />
+        <input
+          value={origin}
+          onChange={(e) => setOrigin(e.target.value)}
+        />
+        <br />
+        <button onClick={handleSearch}>Buscar</button>
       </div>
 
       {loading && <p>Cargando....</p>}

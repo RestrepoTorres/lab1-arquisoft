@@ -21,12 +21,14 @@ public class FlightController {
     public List<List<Flight>> searchFlights(
             @RequestParam(name = "startDate") String startDate,
             @RequestParam(name = "endDate") String endDate,
-            @RequestParam (required = false, name = "airLineName") String airLineName)
+            @RequestParam (required = false, name = "airLineName") String airLineName,
+            @RequestParam (required = false, name = "origin") String origin,
+            @RequestParam (required = false, name = "destination") String destination)
 
     {
         LocalDate parsedStartDate = LocalDate.parse(startDate);
         LocalDate parsedEndDate = LocalDate.parse(endDate);
-        return flightService.searchFlights(parsedStartDate, parsedEndDate,airLineName);
+        return flightService.searchFlights(parsedStartDate, parsedEndDate,airLineName,origin,destination);
     }
 
 

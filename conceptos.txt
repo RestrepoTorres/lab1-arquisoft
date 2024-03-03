@@ -5,4 +5,4 @@ Controller: endpoints
 
 ¿ qué hace setLoading?
 
-¿list <list>>?
+¿list <list>>?o
