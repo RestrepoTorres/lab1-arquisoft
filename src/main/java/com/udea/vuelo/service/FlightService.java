@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,7 +22,7 @@ public class FlightService {
 
 
     //método de la logica de busqueda de vuelos
-    public List<List<Flight>> searchFlights(LocalDate startDate, LocalDate endDate) {
+    public List<List<Flight>> searchFlights(LocalDate startDate, LocalDate endDate, String airLine) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("flights.json");
@@ -32,7 +33,7 @@ public class FlightService {
                         Arrays.stream(flights)
 
                                 .filter(flight -> isDateInRange(flight.getDepartureDate(), startDate, endDate))
-
+                                .filter(flight -> isAirLineEquals(airLine, flight.getAirline()))
                                 .collect(Collectors.toList()));
             } else {
                 return null;
@@ -88,6 +89,9 @@ public class FlightService {
     }
 
     private boolean isAirLineEquals(String airLineName, String airLineNameToCheck) {
+        if (Objects.equals(airLineName, "") || airLineName == null){
+            return true;
+        }
         return airLineName.equals(airLineNameToCheck);
     }
 
@@ -100,6 +104,6 @@ public class FlightService {
     }
 
     private boolean isPriceInRange(int price, int priceToCheck) {
-        return priceToCheck< price;
+        return priceToCheck < price;
     }
 }

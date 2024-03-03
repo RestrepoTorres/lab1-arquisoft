@@ -13,7 +13,7 @@ function FlightSearch() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:8080/flights/search?startDate=${startDate}&endDate=${endDate}`
+        `http://localhost:8080/flights/search?startDate=${startDate}&endDate=${endDate}&airLineName=${airLineName}`
       );
       setFlights(response.data);
       console.log(response.data);
