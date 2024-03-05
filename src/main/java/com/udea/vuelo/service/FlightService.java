@@ -52,6 +52,7 @@ public class FlightService {
         if (price == -1) {
             return true;
         }
+
         return priceToCheck < price;
     }
 }

@@ -60,6 +60,10 @@ function FlightSearch() {
         <br />
         <input  onChange={(e) => setPrice(e.target.value)} />
         <br />
+        <label>Precio minimo </label>
+        <br />
+        <input  />
+        <br />
         <button onClick={handleSearch}>Buscar</button>
       </div>
 
