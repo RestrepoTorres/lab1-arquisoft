@@ -1,11 +1,10 @@
 import React from 'react'
 import FlightSearch from './FlightSearch';
-//import './App.css';
 
 function App() {
   return (
     <div>
-      <h1>Buscador de vuelos</h1>
+      <h1 className="text-4xl text-blue-600 text-center font-bold my-6">Buscador de vuelos</h1>
       <FlightSearch/>
     </div>
   );
