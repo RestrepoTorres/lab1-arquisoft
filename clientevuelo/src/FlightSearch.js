@@ -26,50 +26,81 @@ function FlightSearch() {
   };
 
   return (
-    <div>
-      <h2>Buscar Vuelos</h2>
+    <div className="container mx-auto p-10">
+      <h2 className="text-2xl font-bold mb-4">Filtros:</h2>
 
-      <div>
-        <label>Fecha de Inicio: </label>
-        <br />
-        <input type="date" onChange={(e) => setStartDate(e.target.value)} />
-        <br />
-        <label>Fecha Fin: </label>
-        <br />
-        <input type="date" onChange={(e) => setEndDate(e.target.value)} />
-        <br />
-        <label>nombre de la aerolinea: </label>
-        <br />
-        <input
-          value={airLineName}
-          onChange={(e) => setAirLineName(e.target.value)}
-        />
-        <br />
-        <label>nombre del destino : </label>
-        <br />
-        <input
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-        />
-        <br />
-        <label>nombre del origen : </label>
-        <br />
-        <input value={origin} onChange={(e) => setOrigin(e.target.value)} />
-        <br />
-        <label>Precio máximo: </label>
-        <br />
-        <input  onChange={(e) => setPrice(e.target.value)} />
-        <br />
-        <label>Precio minimo </label>
-        <br />
-        <input  />
-        <br />
-        <button onClick={handleSearch}>Buscar</button>
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label className="block">Fecha de Inicio:</label>
+          <input
+            type="date"
+            className="border rounded px-2 py-1 w-full"
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block">Fecha Fin:</label>
+          <input
+            type="date"
+            className="border rounded px-2 py-1 w-full"
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block">Nombre de la aerolínea:</label>
+          <input
+            value={airLineName}
+            onChange={(e) => setAirLineName(e.target.value)}
+            className="border rounded px-2 py-1 w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block">Nombre del destino:</label>
+          <input
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            className="border rounded px-2 py-1 w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block">Nombre del origen:</label>
+          <input
+            value={origin}
+            onChange={(e) => setOrigin(e.target.value)}
+            className="border rounded px-2 py-1 w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block">Precio máximo:</label>
+          <input
+            onChange={(e) => setPrice(e.target.value)}
+            className="border rounded px-2 py-1 w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block">Precio mínimo:</label>
+          <input className="border rounded px-2 py-1 w-full" />
+        </div>
       </div>
 
-      {loading && <p>Cargando....</p>}
+      <div className="text-center">
+        <button
+          onClick={handleSearch}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Buscar
+        </button>
+      </div>
 
-      <h2>Resultados de la busqueda..</h2>
+      {loading && <p className="text-center">Cargando....</p>}
+
+      <h2 className="text-2xl font-bold mt-4">Resultados de la búsqueda</h2>
 
       {flights.length > 0 ? (
         <ul>
@@ -80,7 +111,7 @@ function FlightSearch() {
                   {`${key}: ${
                     typeof flight[key] === "object"
                       ? JSON.stringify(flight[key])
-                      : flights[key]
+                      : flight[key]
                   }`}
                 </div>
               ))}
@@ -88,7 +119,7 @@ function FlightSearch() {
           ))}
         </ul>
       ) : (
-        <p>No se encontraron vuelos</p>
+        <p className="text-center">No se encontraron vuelos</p>
       )}
     </div>
   );
