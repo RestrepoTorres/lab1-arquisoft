@@ -83,10 +83,6 @@ function FlightSearch() {
           />
         </div>
 
-        <div>
-          <label className="block">Precio mínimo:</label>
-          <input className="border rounded px-2 py-1 w-full" />
-        </div>
       </div>
 
       <div className="text-center">
